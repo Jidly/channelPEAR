@@ -23,6 +23,7 @@ $lasthour2 = 0;
 $xml = simpleXML_load_file("http://www.tvrage.com/myrss.php?show_network=1");
 $date = $xml->channel->pubDate;
 
+/* parse and reformat TVRage RSS to channel PEAR custom RSS format */
 foreach ($xml->channel->item as $items) {
 
     $origtitle = $items->title;
@@ -86,6 +87,7 @@ foreach($networks as $network) {
 
 $finalxml .= "</timetable>";
 echo $finalxml;
+/* Write parsed result to XML file for inclusion in main TV schedule page */
 $fp = fopen('schedule.xml', "w");  
 fwrite($fp, $finalxml);
 fclose($fp);
